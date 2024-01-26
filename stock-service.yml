@@ -1,0 +1,6 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://servicediscovery1.com:8761/eureka, http://servicediscovery2.com:8762/eureka
+  registerWithEureka: true
+  fetchRegistry: true
