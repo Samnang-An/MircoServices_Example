@@ -1,0 +1,10 @@
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: servicediscovery1.com
+  client:
+    serviceUrl:
+      defaultZone: http://servicediscovery1.com:8761/eureka,http://servicediscovery2.com:8762/eureka, http://servicediscovery3.com:8763/eureka
+    registerWithEureka: false
+    fetchRegistry: false
