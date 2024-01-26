@@ -1,0 +1,7 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: stock-service
+  config:
+    import: configserver:http://localhost:9000/
