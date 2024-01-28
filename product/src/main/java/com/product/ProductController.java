@@ -1,6 +1,7 @@
 package com.product;
 
 import com.product.model.Product;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Slf4j
 public class ProductController {
 
   private final Product product = new Product(1, "CocaCola", 100);
@@ -19,6 +21,7 @@ public class ProductController {
 
   @RequestMapping("/product/{id}")
   public String getProduct(@PathVariable int id) {
+    log.info("Payment received.");
     return product + " With StockInfo" + stockFeignClient.getStock(id);
   }
   @RequestMapping("/")
