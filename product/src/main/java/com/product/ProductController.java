@@ -1,6 +1,9 @@
 package com.product;
 
 import com.product.model.Product;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeoutException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
@@ -18,11 +21,15 @@ public class ProductController {
   StockFeignClient stockFeignClient;
 
   @RequestMapping("/product/{id}")
-  public String getProduct(@PathVariable int id) {
-    log.info("Payment received.");
-    return product + " With StockInfo" + stockFeignClient.getStock(id);
+  @TimeLimiter(name = "get-product-circuit-breaker", fallbackMethod = "productBreaker")
+  public CompletableFuture<String> getProduct(@PathVariable int id) {
+    return CompletableFuture.supplyAsync(
+        () -> product + " With StockInfo" + stockFeignClient.getStock(id));
   }
 
+  public CompletableFuture<String> productBreaker(int id, TimeoutException rnp) {
+    return CompletableFuture.supplyAsync(() -> "Fall back as Stock cannot execute");
+  }
   @RequestMapping("/")
   public String home() {
     return "Welcome to Product";
