@@ -29,7 +29,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGateway" options="-parameters" />
       <module name="Config" options="-parameters" />
-      <module name="ConfigRemoteServer" options="-parameters" />
+      <module name="ConfigRemoteServer" options="" />
       <module name="ConfigServer" options="-parameters" />
       <module name="Eureka" options="-parameters" />
       <module name="Eureka (1)" options="-parameters" />

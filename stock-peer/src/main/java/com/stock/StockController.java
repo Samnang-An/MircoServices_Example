@@ -11,7 +11,8 @@ public class StockController {
   private final Product product = new Product(1, "CocaCola", 100);
 
   @RequestMapping("/stock/product/{id}")
-  public String getStockNumber(@PathVariable int id) {
+  public String getStockNumber(@PathVariable int id) throws InterruptedException {
+    Thread.sleep(3000);
     return "Stock-Peer: Product id = " + id + " has " + product.getNumInStock() + " in stock";
   }
 }
